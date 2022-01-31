@@ -1,0 +1,75 @@
+
+<html>
+<body>
+<script language="JavaScript">
+
+function grades(g, fn, ln){
+	this.grade=g;
+	this.namefirst=fn;
+	this.namelast=ln;
+}
+//method for the class
+
+grades.prototype.isPerfectGrade=function(){
+if (this.grade == 100){
+		
+		return true;
+	}
+	else{
+		return false;
+	}
+}
+//prototype function
+
+var gradeStorage=new Array();
+//set up array
+
+
+
+function calcThoseGrades(){
+		var total=0;
+		var average=0;		
+		var buffer="";
+		
+		for (var i=0;i<gradeStorage.length;i++){
+			buffer+="Name:  " + gradeStorage[i].namefirst +" "+ gradeStorage[i].namelast + "   ";
+			buffer+="Grade:" + gradeStorage[i].grade;
+			buffer+="<br />";
+			total=total+gradeStorage[i].grade;	
+
+		}
+		average = total / gradeStorage.length;
+		buffer+="Grade Average:" + average;
+		document.getElementById("gradeSheet").innerHTML=buffer;
+}
+//function that will calculate and output data
+
+window.onload=function(){
+
+
+
+	document.getElementById("showGrades").onclick=calcThoseGrades;
+	document.getElementById("addAGrade").onclick=function(){
+		var temp=new grades();
+		temp.grade=parseFloat(document.getElementById("grade").value);	
+		temp.namefirst=document.getElementById("firstName").value;	
+		temp.namelast=document.getElementById("lastName").value;		
+		gradeStorage.push(temp);
+		calcThoseGrades();
+		
+	}
+}
+//everything that runs on the page load and will get data into program
+</script>
+<form>
+Grade:  <input type="text" id="grade" /><br />
+First Name:  <input type="text" id="firstName" /><br />
+Last Name:  <input type="text" id="lastName" /><br />
+<input type="button" id="addAGrade" value="Add a grade" />
+<input type="button" id="showGrades" value="Show grades" />
+
+</form>
+<div id="gradeSheet"></div>
+
+</body>
+</html>
